@@ -46,9 +46,9 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       {/* Welcome Card */}
-      <div className="bg-white shadow-md rounded-2xl p-6">
-        <h2 className="text-2xl font-bold text-gray-900">🚗 Welcome!</h2>
-        <p className="text-gray-600 mt-2">
+      <div className="bg-white shadow-md rounded-2xl p-6 dark:bg-gray-600">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">🚗 Welcome!</h2>
+        <p className="text-gray-600 mt-2 dark:text-gray-200">
           Manage your parking lot efficiently. Track revenue, book slots, and manage check-outs all in one place.
         </p>
       </div>

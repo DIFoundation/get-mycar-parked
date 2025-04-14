@@ -84,8 +84,8 @@ export default function CheckOutView() {
             onClick={() => setActiveTab(tab)}
             className={`px-4 py-2 font-semibold rounded-full transition ${
               activeTab === tab
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                ? 'bg-blue-600 text-white dark:bg-gray-200 dark:text-gray-800'
+                : 'bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-600 dark:text-white'
             }`}
           >
             {tab === 'booked' ? 'Active Bookings' : 'History'}
@@ -97,30 +97,30 @@ export default function CheckOutView() {
       {activeTab === 'booked' && (
         <div className="grid gap-5">
           {bookings.length === 0 ? (
-            <p className="text-gray-500 text-center">No active bookings</p>
+            <p className="text-gray-500 text-center dark:text-gray-200">No active bookings</p>
           ) : (
             bookings.map((booking, index) => {
               const charges = calculateCharges(booking)
               return (
                 <div
                   key={index}
-                  className="bg-white border rounded-xl shadow-md p-5 transition hover:shadow-lg"
+                  className="bg-white border rounded-xl shadow-md p-5 transition hover:shadow-lg dark:bg-gray-400 dark:border-gray-800"
                 >
                   <div className="flex justify-between items-center">
                     <div>
-                      <h4 className="font-bold text-lg text-blue-900">
+                      <h4 className="font-bold text-lg text-blue-900 dark:text-blue-950">
                         Slot {booking.slotId} — {booking.name}
                       </h4>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-gray-600 dark:text-gray-700">
                         Plate: {booking.plate} | Phone: {booking.phone}
                       </p>
-                      <p className="text-sm mt-1">
+                      <p className="text-sm mt-1 dark:text-white">
                         Time Parked: <strong>{formatTime(charges.minutes)} </strong>
                       </p>
-                      <p>
+                      <p className='dark:text-white'>
                         Total: <strong>{formatPrice(charges.total)}</strong>{' '}
                         {charges.extra > 0 && (
-                          <span className="text-red-500">
+                          <span className="text-red-500 dark:text-red-700">
                             ({formatPrice(charges.extra)} extra)
                           </span>
                         )}
@@ -147,7 +147,7 @@ export default function CheckOutView() {
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="px-3 py-2 border rounded-md text-sm"
+              className="px-3 py-2 border rounded-lg text-sm dark:bg-gray-400 dark:text-white"
             >
               <option value="all">All</option>
               <option value="today">Today</option>
@@ -158,7 +158,7 @@ export default function CheckOutView() {
 
           <div className="grid gap-4">
             {filteredHistory.length === 0 ? (
-              <p className="text-center text-gray-500">No history available</p>
+              <p className="text-center text-gray-500 dark:text-gray-200">No history available</p>
             ) : (
               filteredHistory
                 .slice()
@@ -166,18 +166,18 @@ export default function CheckOutView() {
                 .map((record, index) => (
                   <div
                     key={index}
-                    className="bg-gray-50 p-4 border rounded-md shadow-sm"
+                    className="bg-gray-50 p-4 border rounded-lg shadow-sm dark:bg-gray-400 dark:border-gray-800"
                   >
-                    <div className="text-blue-800 font-semibold">
+                    <div className="text-blue-800 font-semibold dark:text-blue-950">
                       {record.name} | Plate: {record.plate}
                     </div>
-                    <div className="text-sm text-gray-600">
+                    <div className="text-sm text-gray-600 dark:text-gray-700">
                       Slot {record.slotId} | {record.duration} mins
                     </div>
-                    <div className="text-sm font-medium">
+                    <div className="text-sm font-medium dark:text-white">
                       Paid: {formatPrice(record.totalPaid)}
                     </div>
-                    <div className="text-xs text-gray-400">
+                    <div className="text-sm text-gray-400 dark:text-white">
                       {format(new Date(record.endTime), 'PPpp')}
                     </div>
                   </div>
