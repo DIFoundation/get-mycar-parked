@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react'
 import { format, isToday, isThisWeek, isThisMonth } from 'date-fns'
+import { formatTime } from '@/utils/formatTime'
+import { useCurrency } from '@/contexts/currency-context'
 
 export default function CheckOutView() {
   const [activeTab, setActiveTab] = useState('booked')
   const [bookings, setBookings] = useState([])
   const [history, setHistory] = useState([])
   const [filter, setFilter] = useState('all')
+
+  const { formatPrice } = useCurrency()
 
   useEffect(() => {
     const current = JSON.parse(localStorage.getItem('bookings') || '[]')
@@ -111,13 +115,13 @@ export default function CheckOutView() {
                         Plate: {booking.plate} | Phone: {booking.phone}
                       </p>
                       <p className="text-sm mt-1">
-                        Time Parked: <strong>{charges.minutes} mins</strong>
+                        Time Parked: <strong>{formatTime(charges.minutes)} </strong>
                       </p>
                       <p>
-                        Total: <strong>${charges.total}</strong>{' '}
+                        Total: <strong>{formatPrice(charges.total)}</strong>{' '}
                         {charges.extra > 0 && (
                           <span className="text-red-500">
-                            (+${charges.extra} extra)
+                            ({formatPrice(charges.extra)} extra)
                           </span>
                         )}
                       </p>
@@ -171,7 +175,7 @@ export default function CheckOutView() {
                       Slot {record.slotId} | {record.duration} mins
                     </div>
                     <div className="text-sm font-medium">
-                      Paid: ${record.totalPaid}
+                      Paid: {formatPrice(record.totalPaid)}
                     </div>
                     <div className="text-xs text-gray-400">
                       {format(new Date(record.endTime), 'PPpp')}

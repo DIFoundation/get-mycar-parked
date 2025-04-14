@@ -2,9 +2,11 @@
 import { useEffect, useState } from 'react'
 import { isToday, isThisWeek } from 'date-fns'
 import { DollarSign, Calendar, CalendarDays } from 'lucide-react'
+import { useCurrency } from '@/contexts/currency-context'
 
 export default function Dashboard() {
-  const [transactions, setTransactions] = useState([])
+  const [transactions, setTransactions] = useState([]);
+  const { formatPrice } = useCurrency()
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('transactions') || '[]')
@@ -60,7 +62,7 @@ export default function Dashboard() {
           >
             <div>
               <h3 className="text-lg font-semibold">{card.title}</h3>
-              <p className="text-2xl font-bold mt-2">${card.value}</p>
+              <p className="text-2xl font-bold mt-2">{formatPrice(card.value)}</p>
             </div>
             <div className="bg-white bg-opacity-20 p-3 rounded-full">
               {card.icon}
