@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { format, isToday, isThisWeek, isThisMonth } from 'date-fns'
-import { formatTime } from '@/utils/formatTime'
 import { useCurrency } from '@/contexts/currency-context'
 
 export default function CheckOutView() {
@@ -115,7 +114,7 @@ export default function CheckOutView() {
                         Plate: {booking.plate} | Phone: {booking.phone}
                       </p>
                       <p className="text-sm mt-1 dark:text-white">
-                        Time Parked: <strong>{formatTime(charges.minutes)} </strong>
+                        Time Parked: <strong>{charges.minutes} mins</strong>
                       </p>
                       <p className='dark:text-white'>
                         Total: <strong>{formatPrice(charges.total)}</strong>{' '}
